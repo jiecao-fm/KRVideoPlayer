@@ -7,9 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "KRVideoPlayerController.h"
 
-@interface SecondViewController : UIViewController
-
+@interface SecondViewController : UITableViewController
 
 @end
 
+@interface Cell : UITableViewCell
+@property (nonatomic, strong) KRVideoPlayerController *player;
+- (void)setVideo:(NSURL *)url;
+@end
