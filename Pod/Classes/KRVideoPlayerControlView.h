@@ -14,8 +14,7 @@
 @property (nonatomic, strong, readonly) UIView *bottomBar;
 @property (nonatomic, strong, readonly) UIButton *playButton;
 @property (nonatomic, strong, readonly) UIButton *pauseButton;
-//@property (nonatomic, strong, readonly) UIButton *fullScreenButton;
-//@property (nonatomic, strong, readonly) UIButton *shrinkScreenButton;
+@property (nonatomic, strong, readonly) UIButton *fullScreenButton;
 @property (nonatomic, strong, readonly) UISlider *progressSlider;
 @property (nonatomic, strong, readonly) UIButton *closeButton;
 @property (nonatomic, strong, readonly) UILabel *timeLabel;

@@ -8,16 +8,48 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate ()
+@import MediaPlayer;
 
+@interface AppDelegate ()
+@property (nonatomic) BOOL isFullScreen;
 @end
 
 @implementation AppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willExitFullscreen:)
+                                                 name:MPMoviePlayerWillExitFullscreenNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(willEnterFullscreen:)
+                                                 name:MPMoviePlayerWillEnterFullscreenNotification
+                                               object:nil];
+    
     return YES;
+}
+
+- (void)willEnterFullscreen:(NSNotification*)notification
+{
+    NSLog(@"willEnterFullscreen");
+    self.isFullScreen = YES;
+}
+
+- (void)willExitFullscreen:(NSNotification*)notification
+{
+    NSLog(@"willExitFullscreen");
+    self.isFullScreen = NO;
+}
+
+-(NSUInteger)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window
+{
+    if (self.isFullScreen)
+        return UIInterfaceOrientationMaskLandscapeLeft;
+    else
+        return UIInterfaceOrientationMaskPortrait;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

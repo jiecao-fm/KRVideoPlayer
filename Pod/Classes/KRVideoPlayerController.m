@@ -15,7 +15,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 
 @property (nonatomic, strong) KRVideoPlayerControlView *videoControl;
 @property (nonatomic, strong) UIView *movieBackgroundView;
-@property (nonatomic, assign) BOOL isFullscreenMode;
 @property (nonatomic, assign) CGRect originFrame;
 @property (nonatomic, strong) NSTimer *durationTimer;
 
@@ -107,8 +106,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     [self.videoControl.playButton addTarget:self action:@selector(playButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.pauseButton addTarget:self action:@selector(pauseButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.closeButton addTarget:self action:@selector(closeButtonClick) forControlEvents:UIControlEventTouchUpInside];
-//    [self.videoControl.fullScreenButton addTarget:self action:@selector(fullScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
-//    [self.videoControl.shrinkScreenButton addTarget:self action:@selector(shrinkScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.videoControl.fullScreenButton addTarget:self action:@selector(fullScreenButtonClick) forControlEvents:UIControlEventTouchUpInside];
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderValueChanged:) forControlEvents:UIControlEventValueChanged];
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchBegan:) forControlEvents:UIControlEventTouchDown];
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpInside];
@@ -171,39 +169,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     [self dismiss];
 }
 
-//- (void)fullScreenButtonClick
-//{
-//    if (self.isFullscreenMode) {
-//        return;
-//    }
-//    self.originFrame = self.view.frame;
-//    CGFloat height = [[UIScreen mainScreen] bounds].size.width;
-//    CGFloat width = [[UIScreen mainScreen] bounds].size.height;
-//    CGRect frame = CGRectMake((height - width) / 2, (width - height) / 2, width, height);;
-//    [UIView animateWithDuration:0.3f animations:^{
-//        self.frame = frame;
-//        [self.view setTransform:CGAffineTransformMakeRotation(M_PI_2)];
-//    } completion:^(BOOL finished) {
-//        self.isFullscreenMode = YES;
-//        self.videoControl.fullScreenButton.hidden = YES;
-//        self.videoControl.shrinkScreenButton.hidden = NO;
-//    }];
-//}
-//
-//- (void)shrinkScreenButtonClick
-//{
-//    if (!self.isFullscreenMode) {
-//        return;
-//    }
-//    [UIView animateWithDuration:0.3f animations:^{
-//        [self.view setTransform:CGAffineTransformIdentity];
-//        self.frame = self.originFrame;
-//    } completion:^(BOOL finished) {
-//        self.isFullscreenMode = NO;
-//        self.videoControl.fullScreenButton.hidden = NO;
-//        self.videoControl.shrinkScreenButton.hidden = YES;
-//    }];
-//}
+- (void)fullScreenButtonClick
+{
+    if (self.contentURL) {
+        [self setControlStyle:MPMovieControlStyleFullscreen];
+        [self setFullscreen:YES animated:YES];
+    }
+}
 
 - (void)setProgressSliderMaxMinValues {
     CGFloat duration = self.duration;
