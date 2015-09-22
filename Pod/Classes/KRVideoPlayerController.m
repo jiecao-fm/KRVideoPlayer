@@ -156,22 +156,22 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 
 - (void)onMPMoviePlayerWillEnterFullscreenNotification
 {
-    [self setControlStyle:MPMovieControlStyleFullscreen];
+    
 }
 
 - (void)onMPMoviePlayerDidEnterFullscreenNotification
 {
-    [self play];
+
 }
 
 - (void)onMPMoviePlayerWillExitFullscreenNotification
 {
-    [self setControlStyle:MPMovieControlStyleNone];
+    
 }
 
 - (void)onMPMoviePlayerDidExitFullscreenNotification
 {
-    
+    [self setControlStyle:MPMovieControlStyleNone];
 }
 
 - (void)playButtonClick
@@ -196,6 +196,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 - (void)fullScreenButtonClick
 {
     if (self.contentURL) {
+        [self setControlStyle:MPMovieControlStyleFullscreen];
         [self setFullscreen:YES animated:YES];
     }
 }
