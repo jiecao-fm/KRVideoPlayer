@@ -94,6 +94,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerLoadStateDidChangeNotification) name:MPMoviePlayerLoadStateDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerReadyForDisplayDidChangeNotification) name:MPMoviePlayerReadyForDisplayDidChangeNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMovieDurationAvailableNotification) name:MPMovieDurationAvailableNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerWillEnterFullscreenNotification) name:MPMoviePlayerWillEnterFullscreenNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onMPMoviePlayerWillExitFullscreenNotification) name:MPMoviePlayerWillExitFullscreenNotification object:nil];
 }
 
 - (void)cancelObserver
@@ -150,6 +152,17 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     [self setProgressSliderMaxMinValues];
 }
 
+- (void)onMPMoviePlayerWillEnterFullscreenNotification
+{
+    [self setControlStyle:MPMovieControlStyleFullscreen];
+    [self play];
+}
+
+- (void)onMPMoviePlayerWillExitFullscreenNotification
+{
+    [self setControlStyle:MPMovieControlStyleNone];
+}
+
 - (void)playButtonClick
 {
     [self play];
@@ -172,7 +185,6 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 - (void)fullScreenButtonClick
 {
     if (self.contentURL) {
-        [self setControlStyle:MPMovieControlStyleFullscreen];
         [self setFullscreen:YES animated:YES];
     }
 }
