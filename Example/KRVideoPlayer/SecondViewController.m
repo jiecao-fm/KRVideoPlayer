@@ -58,7 +58,13 @@ NSString *PausePlayerNotification = @"PausePlayerNotification";
     self.player = [[KRVideoPlayerController alloc] initWithFrame:CGRectMake(0, 0, width, width*(9.0/16.0))];
     [self.contentView addSubview:self.player.view];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self.player selector:@selector(pause) name:PausePlayerNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pausePlayer) name:PausePlayerNotification object:nil];
+}
+
+- (void)pausePlayer {
+    if (!self.player.isFullscreen) {
+        [self.player pause];
+    }
 }
 
 - (void)setVideo:(NSURL *)url {
