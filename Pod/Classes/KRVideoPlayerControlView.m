@@ -85,6 +85,7 @@ static const CGFloat kVideoControlPlayButtonSize = 64;
     [UIView animateWithDuration:kVideoControlAnimationTimeinterval animations:^{
         self.topBar.alpha = 0.0;
         self.bottomBar.alpha = 0.0;
+        self.playButton.alpha = 0.0;
         self.pauseButton.alpha = 0.0;
     } completion:^(BOOL finished) {
         self.isBarShowing = NO;
@@ -99,6 +100,7 @@ static const CGFloat kVideoControlPlayButtonSize = 64;
     [UIView animateWithDuration:kVideoControlAnimationTimeinterval animations:^{
         self.topBar.alpha = 1.0;
         self.bottomBar.alpha = 1.0;
+        self.playButton.alpha = 1.0;
         self.pauseButton.alpha = 1.0;
     } completion:^(BOOL finished) {
         self.isBarShowing = YES;

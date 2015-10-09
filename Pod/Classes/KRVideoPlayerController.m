@@ -37,6 +37,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
         [self.view addSubview:self.videoControl];
         self.videoControl.frame = self.view.bounds;
         self.videoControl.closeButton.hidden = YES;
+        self.videoControl.bottomBar.alpha = 0;
         [self configObserver];
         [self configControlAction];
     }
@@ -49,6 +50,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 {
     [self stop];
     [super setContentURL:contentURL];
+    [self.videoControl.indicatorView startAnimating];
     [self play];
 }
 
@@ -122,6 +124,10 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
 {
     if (self.playbackState == MPMoviePlaybackStatePlaying) {
+        if (self.videoControl.indicatorView.isAnimating) {
+            self.videoControl.pauseButton.alpha = 0;
+            self.videoControl.playButton.alpha = 0;
+        }
         self.videoControl.pauseButton.hidden = NO;
         self.videoControl.playButton.hidden = YES;
         [self startDurationTimer];
@@ -139,14 +145,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 
 - (void)onMPMoviePlayerLoadStateDidChangeNotification
 {
-    if (self.loadState & MPMovieLoadStateStalled) {
-        [self.videoControl.indicatorView startAnimating];
-    }
+    
 }
 
 - (void)onMPMoviePlayerReadyForDisplayDidChangeNotification
 {
-    
+
 }
 
 - (void)onMPMovieDurationAvailableNotification
@@ -241,8 +245,14 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     double secondsRemaining = floor(fmod(totalTime, 60.0));;
     NSString *timeRmainingString = [NSString stringWithFormat:@"%02.0f:%02.0f", minutesRemaining, secondsRemaining];
     
-    self.videoControl.currentTimeLabel.text = [NSString stringWithFormat:@"%@", timeElapsedString];
-    self.videoControl.totalTimeLabel.text = [NSString stringWithFormat:@"%@", timeRmainingString];
+    if (minutesRemaining == 0.0 && secondsRemaining == 0.0) {
+        self.videoControl.currentTimeLabel.text = @"--:--";
+        self.videoControl.totalTimeLabel.text = @"--:--";
+    } else {
+        self.videoControl.currentTimeLabel.text = timeElapsedString;
+        self.videoControl.totalTimeLabel.text = timeRmainingString;
+    }
+    
 }
 
 - (void)startDurationTimer
