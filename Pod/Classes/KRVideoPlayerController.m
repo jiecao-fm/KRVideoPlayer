@@ -241,7 +241,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     double secondsRemaining = floor(fmod(totalTime, 60.0));;
     NSString *timeRmainingString = [NSString stringWithFormat:@"%02.0f:%02.0f", minutesRemaining, secondsRemaining];
     
-    self.videoControl.timeLabel.text = [NSString stringWithFormat:@"%@/%@",timeElapsedString,timeRmainingString];
+    self.videoControl.currentTimeLabel.text = [NSString stringWithFormat:@"%@", timeElapsedString];
+    self.videoControl.totalTimeLabel.text = [NSString stringWithFormat:@"%@", timeRmainingString];
 }
 
 - (void)startDurationTimer

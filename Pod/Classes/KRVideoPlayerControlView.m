@@ -8,10 +8,12 @@
 
 #import "KRVideoPlayerControlView.h"
 
-static const CGFloat kVideoControlBarHeight = 40.0;
+static const CGFloat kVideoControlBarHeight = 28.0;
 static const CGFloat kVideoControlAnimationTimeinterval = 0.3;
-static const CGFloat kVideoControlTimeLabelFontSize = 10.0;
+static const CGFloat kVideoControlTimeLabelWidth = 32.0;
+static const CGFloat kVideoControlTimeLabelFontSize = 8.0;
 static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
+static const CGFloat kVideoControlPlayButtonSize = 64;
 
 @interface KRVideoPlayerControlView ()
 
@@ -22,7 +24,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 @property (nonatomic, strong) UIButton *fullScreenButton;
 @property (nonatomic, strong) UISlider *progressSlider;
 @property (nonatomic, strong) UIButton *closeButton;
-@property (nonatomic, strong) UILabel *timeLabel;
+@property (nonatomic, strong) UILabel *currentTimeLabel;
+@property (nonatomic, strong) UILabel *totalTimeLabel;
 @property (nonatomic, assign) BOOL isBarShowing;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 
@@ -38,12 +41,14 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
         [self addSubview:self.topBar];
         [self.topBar addSubview:self.closeButton];
         [self addSubview:self.bottomBar];
-        [self.bottomBar addSubview:self.playButton];
-        [self.bottomBar addSubview:self.pauseButton];
+        [self addSubview:self.playButton];
+        [self addSubview:self.pauseButton];
+        self.playButton.hidden = YES;
         self.pauseButton.hidden = YES;
         [self.bottomBar addSubview:self.fullScreenButton];
         [self.bottomBar addSubview:self.progressSlider];
-        [self.bottomBar addSubview:self.timeLabel];
+        [self.bottomBar addSubview:self.currentTimeLabel];
+        [self.bottomBar addSubview:self.totalTimeLabel];
         [self addSubview:self.indicatorView];
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTap:)];
         [self addGestureRecognizer:tapGesture];
@@ -57,11 +62,12 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     self.topBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetMinY(self.bounds), CGRectGetWidth(self.bounds), kVideoControlBarHeight);
     self.closeButton.frame = CGRectMake(CGRectGetWidth(self.topBar.bounds) - CGRectGetWidth(self.closeButton.bounds), CGRectGetMinX(self.topBar.bounds), CGRectGetWidth(self.closeButton.bounds), CGRectGetHeight(self.closeButton.bounds));
     self.bottomBar.frame = CGRectMake(CGRectGetMinX(self.bounds), CGRectGetHeight(self.bounds) - kVideoControlBarHeight, CGRectGetWidth(self.bounds), kVideoControlBarHeight);
-    self.playButton.frame = CGRectMake(CGRectGetMinX(self.bottomBar.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.playButton.bounds)/2, CGRectGetWidth(self.playButton.bounds), CGRectGetHeight(self.playButton.bounds));
-    self.pauseButton.frame = self.playButton.frame;
+    self.currentTimeLabel.frame = CGRectMake(0, CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.currentTimeLabel.bounds)/2, CGRectGetWidth(self.currentTimeLabel.bounds), CGRectGetHeight(self.currentTimeLabel.bounds));
     self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
-    self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.progressSlider.bounds)/2, CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetMaxX(self.playButton.frame), kVideoControlBarHeight);
-    self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetHeight(self.bottomBar.bounds) - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.progressSlider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
+    self.totalTimeLabel.frame = CGRectMake(CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetWidth(self.totalTimeLabel.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.totalTimeLabel.bounds)/2, CGRectGetWidth(self.totalTimeLabel.bounds), CGRectGetHeight(self.totalTimeLabel.bounds));
+    self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.currentTimeLabel.frame), 0, CGRectGetMinX(self.totalTimeLabel.frame) - CGRectGetMaxX(self.currentTimeLabel.frame), kVideoControlBarHeight);
+    self.playButton.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    self.pauseButton.center = self.playButton.center;
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
 
@@ -79,6 +85,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     [UIView animateWithDuration:kVideoControlAnimationTimeinterval animations:^{
         self.topBar.alpha = 0.0;
         self.bottomBar.alpha = 0.0;
+        self.pauseButton.alpha = 0.0;
     } completion:^(BOOL finished) {
         self.isBarShowing = NO;
     }];
@@ -92,6 +99,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     [UIView animateWithDuration:kVideoControlAnimationTimeinterval animations:^{
         self.topBar.alpha = 1.0;
         self.bottomBar.alpha = 1.0;
+        self.pauseButton.alpha = 1.0;
     } completion:^(BOOL finished) {
         self.isBarShowing = YES;
         [self autoFadeOutControlBar];
@@ -147,8 +155,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 {
     if (!_playButton) {
         _playButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_playButton setImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-play"]] forState:UIControlStateNormal];
-        _playButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+        [_playButton setImage:[UIImage imageNamed:[self videoImageName:@"jc-video-player-play"]] forState:UIControlStateNormal];
+        _playButton.contentMode = UIViewContentModeCenter;
+        _playButton.bounds = CGRectMake(0, 0, kVideoControlPlayButtonSize, kVideoControlPlayButtonSize);
     }
     return _playButton;
 }
@@ -157,8 +166,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 {
     if (!_pauseButton) {
         _pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_pauseButton setImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-pause"]] forState:UIControlStateNormal];
-        _pauseButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
+        [_pauseButton setImage:[UIImage imageNamed:[self videoImageName:@"jc-video-player-pause"]] forState:UIControlStateNormal];
+        _pauseButton.contentMode = UIViewContentModeCenter;
+        _pauseButton.bounds = CGRectMake(0, 0, kVideoControlPlayButtonSize, kVideoControlPlayButtonSize);
     }
     return _pauseButton;
 }
@@ -167,7 +177,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 {
     if (!_fullScreenButton) {
         _fullScreenButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [_fullScreenButton setImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-fullscreen"]] forState:UIControlStateNormal];
+        [_fullScreenButton setImage:[UIImage imageNamed:[self videoImageName:@"jc-video-player-fullscreen"]] forState:UIControlStateNormal];
         _fullScreenButton.bounds = CGRectMake(0, 0, kVideoControlBarHeight, kVideoControlBarHeight);
     }
     return _fullScreenButton;
@@ -177,9 +187,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
 {
     if (!_progressSlider) {
         _progressSlider = [[UISlider alloc] init];
-        [_progressSlider setThumbImage:[UIImage imageNamed:[self videoImageName:@"kr-video-player-point"]] forState:UIControlStateNormal];
-        [_progressSlider setMinimumTrackTintColor:[UIColor whiteColor]];
-        [_progressSlider setMaximumTrackTintColor:[UIColor lightGrayColor]];
+        [_progressSlider setThumbImage:[UIImage imageNamed:[self videoImageName:@"jc-video-player-point"]] forState:UIControlStateNormal];
+        [_progressSlider setMinimumTrackTintColor:[UIColor colorWithRed:255/255.0 green:64/255.0 blue:64/255.0 alpha:1]];
+        [_progressSlider setMaximumTrackTintColor:[UIColor colorWithRed:183/255.0 green:184/255.0 blue:184/255.0 alpha:1]];
         _progressSlider.value = 0.f;
         _progressSlider.continuous = YES;
     }
@@ -196,17 +206,30 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeinterval = 5.0;
     return _closeButton;
 }
 
-- (UILabel *)timeLabel
+- (UILabel *)currentTimeLabel
 {
-    if (!_timeLabel) {
-        _timeLabel = [UILabel new];
-        _timeLabel.backgroundColor = [UIColor clearColor];
-        _timeLabel.font = [UIFont systemFontOfSize:kVideoControlTimeLabelFontSize];
-        _timeLabel.textColor = [UIColor whiteColor];
-        _timeLabel.textAlignment = NSTextAlignmentRight;
-        _timeLabel.bounds = CGRectMake(0, 0, kVideoControlTimeLabelFontSize, kVideoControlTimeLabelFontSize);
+    if (!_currentTimeLabel) {
+        _currentTimeLabel = [UILabel new];
+        _currentTimeLabel.backgroundColor = [UIColor clearColor];
+        _currentTimeLabel.font = [UIFont systemFontOfSize:kVideoControlTimeLabelFontSize];
+        _currentTimeLabel.textColor = [UIColor whiteColor];
+        _currentTimeLabel.textAlignment = NSTextAlignmentCenter;
+        _currentTimeLabel.bounds = CGRectMake(0, 0, kVideoControlTimeLabelWidth, kVideoControlTimeLabelFontSize);
     }
-    return _timeLabel;
+    return _currentTimeLabel;
+}
+
+- (UILabel *)totalTimeLabel
+{
+    if (!_totalTimeLabel) {
+        _totalTimeLabel = [UILabel new];
+        _totalTimeLabel.backgroundColor = [UIColor clearColor];
+        _totalTimeLabel.font = [UIFont systemFontOfSize:kVideoControlTimeLabelFontSize];
+        _totalTimeLabel.textColor = [UIColor whiteColor];
+        _totalTimeLabel.textAlignment = NSTextAlignmentCenter;
+        _totalTimeLabel.bounds = CGRectMake(0, 0, kVideoControlTimeLabelWidth, kVideoControlTimeLabelFontSize);
+    }
+    return _totalTimeLabel;
 }
 
 - (UIActivityIndicatorView *)indicatorView
