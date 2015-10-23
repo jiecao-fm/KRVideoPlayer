@@ -123,11 +123,11 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
 {
+    if (self.videoControl.indicatorView.isAnimating) {
+        self.videoControl.pauseButton.alpha = 0;
+        self.videoControl.playButton.alpha = 0;
+    }
     if (self.playbackState == MPMoviePlaybackStatePlaying) {
-        if (self.videoControl.indicatorView.isAnimating) {
-            self.videoControl.pauseButton.alpha = 0;
-            self.videoControl.playButton.alpha = 0;
-        }
         self.videoControl.pauseButton.hidden = NO;
         self.videoControl.playButton.hidden = YES;
         [self startDurationTimer];
