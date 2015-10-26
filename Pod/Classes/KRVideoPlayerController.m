@@ -119,6 +119,23 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpOutside];
     [self setProgressSliderMaxMinValues];
     [self monitorVideoPlayback];
+    UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panVideoControl:)];
+    [panGR setMaximumNumberOfTouches:1];
+    [panGR setMinimumNumberOfTouches:1];
+    [self.videoControl addGestureRecognizer:panGR];
+}
+
+- (void)panVideoControl:(UIPanGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        [self progressSliderTouchBegan:self.videoControl.progressSlider];
+    } else if (sender.state == UIGestureRecognizerStateChanged) {
+        CGPoint offset = [sender translationInView:self.view];
+        [self.videoControl.progressSlider setValue:self.videoControl.progressSlider.value + offset.x/self.duration];
+        [self progressSliderValueChanged:self.videoControl.progressSlider];
+        [sender setTranslation:CGPointMake(0, 0) inView:self.view];
+    } else if (sender.state == UIGestureRecognizerStateEnded) {
+        [self progressSliderTouchEnded:self.videoControl.progressSlider];
+    }
 }
 
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
