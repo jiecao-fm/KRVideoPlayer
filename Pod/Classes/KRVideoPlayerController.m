@@ -137,9 +137,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
         self.videoControl.pauseButton.hidden = YES;
         self.videoControl.playButton.hidden = NO;
         [self stopDurationTimer];
-        if (self.playbackState == MPMoviePlaybackStateStopped) {
-            [self.videoControl animateShow];
-        }
+//        if (self.playbackState == MPMoviePlaybackStateStopped) {
+//            [self.videoControl animateShow];
+//        }
     }
 }
 
