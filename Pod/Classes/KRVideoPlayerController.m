@@ -130,7 +130,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
         [self progressSliderTouchBegan:self.videoControl.progressSlider];
     } else if (sender.state == UIGestureRecognizerStateChanged) {
         CGPoint offset = [sender translationInView:self.view];
-        [self.videoControl.progressSlider setValue:self.videoControl.progressSlider.value + offset.x/self.duration];
+        [self.videoControl.progressSlider setValue:self.videoControl.progressSlider.value + offset.x/self.videoControl.progressSlider.bounds.size.width*self.duration];
         [self progressSliderValueChanged:self.videoControl.progressSlider];
         [sender setTranslation:CGPointMake(0, 0) inView:self.view];
     } else if (sender.state == UIGestureRecognizerStateEnded) {
