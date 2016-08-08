@@ -26,8 +26,9 @@ static const CGFloat kVideoControlPlayButtonSize = 64;
 @property (nonatomic, strong) UIButton *closeButton;
 @property (nonatomic, strong) UILabel *currentTimeLabel;
 @property (nonatomic, strong) UILabel *totalTimeLabel;
-@property (nonatomic, assign) BOOL isBarShowing;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+@property (nonatomic, strong) UIImageView *timeLengthIcon;
+@property (nonatomic, strong) UILabel *timeLengthLabel;
 
 @end
 
@@ -43,6 +44,8 @@ static const CGFloat kVideoControlPlayButtonSize = 64;
         [self addSubview:self.bottomBar];
         [self addSubview:self.playButton];
         [self addSubview:self.pauseButton];
+        [self addSubview:self.timeLengthIcon];
+        [self addSubview:self.timeLengthLabel];
         self.playButton.hidden = YES;
         self.pauseButton.hidden = YES;
         [self.bottomBar addSubview:self.fullScreenButton];
@@ -66,7 +69,9 @@ static const CGFloat kVideoControlPlayButtonSize = 64;
     self.fullScreenButton.frame = CGRectMake(CGRectGetWidth(self.bottomBar.bounds) - CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.fullScreenButton.bounds)/2, CGRectGetWidth(self.fullScreenButton.bounds), CGRectGetHeight(self.fullScreenButton.bounds));
     self.totalTimeLabel.frame = CGRectMake(CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetWidth(self.totalTimeLabel.bounds), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.totalTimeLabel.bounds)/2, CGRectGetWidth(self.totalTimeLabel.bounds), CGRectGetHeight(self.totalTimeLabel.bounds));
     self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.currentTimeLabel.frame), 0, CGRectGetMinX(self.totalTimeLabel.frame) - CGRectGetMaxX(self.currentTimeLabel.frame), kVideoControlBarHeight);
-    self.playButton.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
+    self.playButton.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds)-11);
+    self.timeLengthIcon.frame = CGRectMake(CGRectGetMinX(self.playButton.frame) + 4, CGRectGetMaxY(self.playButton.frame) + 6, 18, 18);
+    self.timeLengthLabel.frame = CGRectMake(CGRectGetMaxX(self.timeLengthIcon.frame) + 6, CGRectGetMinY(self.timeLengthIcon.frame) + 6, 30, 10);
     self.pauseButton.center = self.playButton.center;
     self.indicatorView.center = CGPointMake(CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds));
 }
@@ -87,6 +92,8 @@ static const CGFloat kVideoControlPlayButtonSize = 64;
         self.bottomBar.alpha = 0.0;
         self.playButton.alpha = 0.0;
         self.pauseButton.alpha = 0.0;
+        self.timeLengthIcon.alpha = 0.0;
+        self.timeLengthLabel.alpha = 0.0;
     } completion:^(BOOL finished) {
         self.isBarShowing = NO;
     }];
@@ -102,6 +109,8 @@ static const CGFloat kVideoControlPlayButtonSize = 64;
         self.bottomBar.alpha = 1.0;
         self.playButton.alpha = 1.0;
         self.pauseButton.alpha = 1.0;
+        self.timeLengthLabel.alpha = 1.0;
+        self.timeLengthIcon.alpha = 1.0;
     } completion:^(BOOL finished) {
         self.isBarShowing = YES;
         [self autoFadeOutControlBar];
@@ -241,6 +250,25 @@ static const CGFloat kVideoControlPlayButtonSize = 64;
         [_indicatorView stopAnimating];
     }
     return _indicatorView;
+}
+
+- (UIImageView *)timeLengthIcon {
+    if (!_timeLengthIcon) {
+        _timeLengthIcon = [[UIImageView alloc] init];
+        _timeLengthIcon.image = [UIImage imageNamed:[self videoImageName:@"jc-video-player-length"]];
+        _timeLengthIcon.bounds = CGRectMake(0, 0, 18, 18);
+    }
+    return _timeLengthIcon;
+}
+
+- (UILabel *)timeLengthLabel {
+    if (!_timeLengthLabel) {
+        _timeLengthLabel = [[UILabel alloc] init];
+        _timeLengthLabel.textAlignment = NSTextAlignmentLeft;
+        _timeLengthLabel.font = [UIFont systemFontOfSize:10];
+        _timeLengthLabel.textColor = [UIColor whiteColor];
+    }
+    return _timeLengthLabel;
 }
 
 #pragma mark - Private Method

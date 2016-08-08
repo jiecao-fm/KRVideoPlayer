@@ -11,12 +11,13 @@
 
 static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 
-@interface KRVideoPlayerController ()
+@interface KRVideoPlayerController () <UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) KRVideoPlayerControlView *videoControl;
 @property (nonatomic, strong) UIView *movieBackgroundView;
 @property (nonatomic, assign) CGRect originFrame;
 @property (nonatomic, strong) NSTimer *durationTimer;
+@property (nonatomic, strong) UIPanGestureRecognizer *progressPan;
 
 @end
 
@@ -38,6 +39,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
         self.videoControl.frame = self.view.bounds;
         self.videoControl.closeButton.hidden = YES;
         self.videoControl.bottomBar.alpha = 0;
+        self.videoControl.timeLengthIcon.hidden = YES;
+        self.videoControl.timeLengthLabel.hidden = YES;
         [self configObserver];
         [self configControlAction];
     }
@@ -119,10 +122,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     [self.videoControl.progressSlider addTarget:self action:@selector(progressSliderTouchEnded:) forControlEvents:UIControlEventTouchUpOutside];
     [self setProgressSliderMaxMinValues];
     [self monitorVideoPlayback];
-    UIPanGestureRecognizer *panGR = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panVideoControl:)];
-    [panGR setMaximumNumberOfTouches:1];
-    [panGR setMinimumNumberOfTouches:1];
-    [self.videoControl addGestureRecognizer:panGR];
+    
+    self.progressPan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panVideoControl:)];
+    [self.progressPan setDelegate:self];
+    [self.progressPan setMaximumNumberOfTouches:1];
+    [self.progressPan setMinimumNumberOfTouches:1];
+    [self.videoControl addGestureRecognizer:self.progressPan];
 }
 
 - (void)panVideoControl:(UIPanGestureRecognizer *)sender {
@@ -136,6 +141,13 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     } else if (sender.state == UIGestureRecognizerStateEnded) {
         [self progressSliderTouchEnded:self.videoControl.progressSlider];
     }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+    if (gestureRecognizer == self.progressPan) {
+        return self.videoControl.isBarShowing;
+    }
+    return YES;
 }
 
 - (void)onMPMoviePlayerPlaybackStateDidChangeNotification
@@ -314,6 +326,15 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     [self.videoControl setFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
     [self.videoControl setNeedsLayout];
     [self.videoControl layoutIfNeeded];
+}
+
+- (void)setTimeLength:(NSString *)timeLength {
+    if (!timeLength || [timeLength isEqualToString:@""]) {
+        return;
+    }
+    self.videoControl.timeLengthIcon.hidden = NO;
+    self.videoControl.timeLengthLabel.hidden = NO;
+    self.videoControl.timeLengthLabel.text = timeLength;
 }
 
 

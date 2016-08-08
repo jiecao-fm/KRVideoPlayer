@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy)void(^dimissCompleteBlock)(void);
 @property (nonatomic, assign) CGRect frame;
+@property (nonatomic, strong) NSString *timeLength;
 
 - (instancetype)initWithFrame:(CGRect)frame;
 - (void)showInWindow;

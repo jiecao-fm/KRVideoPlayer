@@ -20,6 +20,9 @@
 @property (nonatomic, strong, readonly) UILabel *currentTimeLabel;
 @property (nonatomic, strong, readonly) UILabel *totalTimeLabel;
 @property (nonatomic, strong, readonly) UIActivityIndicatorView *indicatorView;
+@property (nonatomic, strong, readonly) UIImageView *timeLengthIcon;
+@property (nonatomic, strong, readonly) UILabel *timeLengthLabel;
+@property (nonatomic, assign) BOOL isBarShowing;
 
 - (void)animateHide;
 - (void)animateShow;

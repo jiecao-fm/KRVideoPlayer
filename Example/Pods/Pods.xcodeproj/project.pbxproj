@@ -20,6 +20,8 @@
 		51F55AA26B48A6F9DCB7A66FEC206097 /* Pods-KRVideoPlayer-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 56BA44F96DD722B426FC0982824DCBC1 /* Pods-KRVideoPlayer-dummy.m */; };
 		5EE1D022FC2601972792A5B0C6833A70 /* jc-video-player-point@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 29E4567595A118A677817A7729313FF5 /* jc-video-player-point@3x.png */; };
 		836B327EAD5535D680DA94FE50E01B7B /* jc-video-player-play@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 43A8101B4C47F74FF2D0E3CEE1548A3B /* jc-video-player-play@2x.png */; };
+		A31AF4401D58955200A64755 /* jc-video-player-length@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A31AF43E1D58955200A64755 /* jc-video-player-length@2x.png */; };
+		A31AF4411D58955200A64755 /* jc-video-player-length@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A31AF43F1D58955200A64755 /* jc-video-player-length@3x.png */; };
 		BED47E79E1AD2E0169C1B5EA013AA34F /* KRVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 114BFF76835F86618A607FD3ADEF5EA0 /* KRVideoPlayerController.m */; };
 		D49709C7752A99A9D551AB983EDDD0EB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B252E120552888F7C7C8D307AD4DB6 /* Foundation.framework */; };
 		D62A3AFD3D8A4B29F2C38AA78365F1AA /* jc-video-player-point@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0B21CDF2DC4352DBD07116C508E482CD /* jc-video-player-point@2x.png */; };
@@ -67,6 +69,8 @@
 		93172122A8A6C8BE7120EEDB5EC18EE0 /* Pods-KRVideoPlayer-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-KRVideoPlayer-acknowledgements.markdown"; sourceTree = "<group>"; };
 		95527C377CA31D4B6372BE714FA871A8 /* jc-video-player-play@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "jc-video-player-play@3x.png"; sourceTree = "<group>"; };
 		95809DA973D19D6DAF7BFA0BFDF7B278 /* KRVideoPlayer.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = KRVideoPlayer.xcconfig; sourceTree = "<group>"; };
+		A31AF43E1D58955200A64755 /* jc-video-player-length@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "jc-video-player-length@2x.png"; sourceTree = "<group>"; };
+		A31AF43F1D58955200A64755 /* jc-video-player-length@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "jc-video-player-length@3x.png"; sourceTree = "<group>"; };
 		A4C1C7298DBC8C3F3175342FDD7A288A /* kr-video-player-close@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "kr-video-player-close@3x.png"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		C107DBDDBD78D12F3A9094FE9E7CE39A /* jc-video-player-fullscreen@3x.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; path = "jc-video-player-fullscreen@3x.png"; sourceTree = "<group>"; };
@@ -208,6 +212,8 @@
 			children = (
 				77DE1DAF60BB1A9E5D8AC37FF1C2987B /* jc-video-player-fullscreen@2x.png */,
 				C107DBDDBD78D12F3A9094FE9E7CE39A /* jc-video-player-fullscreen@3x.png */,
+				A31AF43E1D58955200A64755 /* jc-video-player-length@2x.png */,
+				A31AF43F1D58955200A64755 /* jc-video-player-length@3x.png */,
 				FD6531E36C7BC6E4FE6CE6DB3C551E0C /* jc-video-player-pause@2x.png */,
 				650CE7519A9EC6AA93EB622FF2F7686F /* jc-video-player-pause@3x.png */,
 				43A8101B4C47F74FF2D0E3CEE1548A3B /* jc-video-player-play@2x.png */,
@@ -354,7 +360,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				13A18E81AB2BEBE64C33288CF08ECB0D /* jc-video-player-fullscreen@2x.png in Resources */,
+				A31AF4411D58955200A64755 /* jc-video-player-length@3x.png in Resources */,
 				033D37D0C477E97DFD72B2C4878A8F3B /* jc-video-player-fullscreen@3x.png in Resources */,
+				A31AF4401D58955200A64755 /* jc-video-player-length@2x.png in Resources */,
 				DB002E6DC363871658616F23CC2A0D10 /* jc-video-player-pause@2x.png in Resources */,
 				E1E25DD55DAC4BB42FD07DB08010AB36 /* jc-video-player-pause@3x.png in Resources */,
 				836B327EAD5535D680DA94FE50E01B7B /* jc-video-player-play@2x.png in Resources */,

@@ -69,6 +69,7 @@ NSString *PausePlayerNotification = @"PausePlayerNotification";
 
 - (void)setVideo:(NSURL *)url {
     self.player.contentURL = url;
+    self.player.timeLength = @"03:14";
 }
 
 @end
