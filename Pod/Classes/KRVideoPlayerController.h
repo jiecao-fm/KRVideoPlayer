@@ -11,6 +11,7 @@
 @interface KRVideoPlayerController : MPMoviePlayerController
 
 @property (nonatomic, copy)void(^dimissCompleteBlock)(void);
+@property (nonatomic, copy)void(^playBlock)(void);
 @property (nonatomic, assign) CGRect frame;
 @property (nonatomic, strong) NSString *timeLength;
 

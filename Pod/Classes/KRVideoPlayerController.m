@@ -55,6 +55,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     [super setContentURL:contentURL];
     [self.videoControl.indicatorView startAnimating];
     [self play];
+    if (self.playBlock) {
+        self.playBlock();
+    }
 }
 
 #pragma mark - Publick Method
@@ -210,6 +213,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 - (void)playButtonClick
 {
     [self play];
+    if (self.playBlock) {
+        self.playBlock();
+    }
     self.videoControl.playButton.hidden = YES;
     self.videoControl.pauseButton.hidden = NO;
 }
@@ -248,6 +254,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 - (void)progressSliderTouchEnded:(UISlider *)slider {
     [self setCurrentPlaybackTime:floor(slider.value)];
     [self play];
+    if (self.playBlock) {
+        self.playBlock();
+    }
     [self.videoControl autoFadeOutControlBar];
 }
 
