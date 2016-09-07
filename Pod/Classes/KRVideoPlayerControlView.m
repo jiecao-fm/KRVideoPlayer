@@ -48,6 +48,8 @@ static const CGFloat kVideoControlPlayButtonSize = 64;
         [self addSubview:self.timeLengthLabel];
         self.playButton.hidden = YES;
         self.pauseButton.hidden = YES;
+        self.timeLengthIcon.hidden = YES;
+        self.timeLengthLabel.hidden = YES;
         [self.bottomBar addSubview:self.fullScreenButton];
         [self.bottomBar addSubview:self.progressSlider];
         [self.bottomBar addSubview:self.currentTimeLabel];
