@@ -341,7 +341,9 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
     if (!timeLength || [timeLength isEqualToString:@""]) {
         return;
     }
+    self.videoControl.timeLengthIcon.alpha = 0;
     self.videoControl.timeLengthIcon.hidden = NO;
+    self.videoControl.timeLengthLabel.alpha = 0;
     self.videoControl.timeLengthLabel.hidden = NO;
     self.videoControl.timeLengthLabel.text = timeLength;
 }
