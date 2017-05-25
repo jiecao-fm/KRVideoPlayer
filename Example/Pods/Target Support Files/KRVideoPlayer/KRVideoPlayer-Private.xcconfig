@@ -1,6 +1,0 @@
-#include "KRVideoPlayer.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Private" "${PODS_ROOT}/Headers/Private/KRVideoPlayer" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/KRVideoPlayer"
-OTHER_LDFLAGS = ${KRVIDEOPLAYER_OTHER_LDFLAGS}
-PODS_ROOT = ${SRCROOT}
-SKIP_INSTALL = YES

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E814FF5F3414F0C55A86359 /* libPods-KRVideoPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A138389850790B704CE2148 /* libPods-KRVideoPlayer.a */; };
+		4E4D08E850264A89ADABE957 /* libPods-KRVideoPlayer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A87A653E377F08E18672ADC /* libPods-KRVideoPlayer.a */; };
 		BCA862881B10AD3200BD22DA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA862871B10AD3200BD22DA /* main.m */; };
 		BCA8628B1B10AD3200BD22DA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA8628A1B10AD3200BD22DA /* AppDelegate.m */; };
 		BCA8628E1B10AD3200BD22DA /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BCA8628D1B10AD3200BD22DA /* FirstViewController.m */; };
@@ -30,8 +30,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5A138389850790B704CE2148 /* libPods-KRVideoPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KRVideoPlayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9F5327FC750A6111E57068D1 /* Pods-KRVideoPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KRVideoPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-KRVideoPlayer/Pods-KRVideoPlayer.release.xcconfig"; sourceTree = "<group>"; };
+		3A87A653E377F08E18672ADC /* libPods-KRVideoPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-KRVideoPlayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC8E08B1C9E0F2E945FF5C10 /* Pods-KRVideoPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KRVideoPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KRVideoPlayer/Pods-KRVideoPlayer.debug.xcconfig"; sourceTree = "<group>"; };
 		BCA862821B10AD3200BD22DA /* KRVideoPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KRVideoPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCA862861B10AD3200BD22DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCA862871B10AD3200BD22DA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -48,7 +48,7 @@
 		BCA862A31B10AD3200BD22DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCA862A41B10AD3200BD22DA /* KRVideoPlayerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KRVideoPlayerTests.m; sourceTree = "<group>"; };
 		BCA862B01B10B5E400BD22DA /* 150511_JiveBike.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = 150511_JiveBike.mov; sourceTree = "<group>"; };
-		D109D543FF0ECF3DF7461A5E /* Pods-KRVideoPlayer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KRVideoPlayer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KRVideoPlayer/Pods-KRVideoPlayer.debug.xcconfig"; sourceTree = "<group>"; };
+		D2B7086BA220F4DD02A54539 /* Pods-KRVideoPlayer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KRVideoPlayer.release.xcconfig"; path = "Pods/Target Support Files/Pods-KRVideoPlayer/Pods-KRVideoPlayer.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,7 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E814FF5F3414F0C55A86359 /* libPods-KRVideoPlayer.a in Frameworks */,
+				4E4D08E850264A89ADABE957 /* libPods-KRVideoPlayer.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,12 +70,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1799647DF909AB82D44C7418 /* Frameworks */ = {
+		8C54DC3BFD0DEFAAE1C8A6DA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5A138389850790B704CE2148 /* libPods-KRVideoPlayer.a */,
+				3A87A653E377F08E18672ADC /* libPods-KRVideoPlayer.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8D807361E538A9231B50945E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BC8E08B1C9E0F2E945FF5C10 /* Pods-KRVideoPlayer.debug.xcconfig */,
+				D2B7086BA220F4DD02A54539 /* Pods-KRVideoPlayer.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		BCA862791B10AD3200BD22DA = {
@@ -84,8 +93,8 @@
 				BCA862841B10AD3200BD22DA /* KRVideoPlayer */,
 				BCA862A11B10AD3200BD22DA /* KRVideoPlayerTests */,
 				BCA862831B10AD3200BD22DA /* Products */,
-				D42D89DDAE1953E334E54124 /* Pods */,
-				1799647DF909AB82D44C7418 /* Frameworks */,
+				8D807361E538A9231B50945E /* Pods */,
+				8C54DC3BFD0DEFAAE1C8A6DA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -142,15 +151,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		D42D89DDAE1953E334E54124 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D109D543FF0ECF3DF7461A5E /* Pods-KRVideoPlayer.debug.xcconfig */,
-				9F5327FC750A6111E57068D1 /* Pods-KRVideoPlayer.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -158,11 +158,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BCA862A81B10AD3200BD22DA /* Build configuration list for PBXNativeTarget "KRVideoPlayer" */;
 			buildPhases = (
-				70FA2A06CE47FC373D3AAFF6 /* Check Pods Manifest.lock */,
+				3B2EDFD23441F75B32914D3A /* [CP] Check Pods Manifest.lock */,
 				BCA8627E1B10AD3200BD22DA /* Sources */,
 				BCA8627F1B10AD3200BD22DA /* Frameworks */,
 				BCA862801B10AD3200BD22DA /* Resources */,
-				2157740AC0A4CDF3182191E7 /* Copy Pods Resources */,
+				86BD7ECA8CF1020B06FED372 /* [CP] Embed Pods Frameworks */,
+				0F84EC4BF4A3B58FDA7386E4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,14 +251,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2157740AC0A4CDF3182191E7 /* Copy Pods Resources */ = {
+		0F84EC4BF4A3B58FDA7386E4 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -265,19 +266,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KRVideoPlayer/Pods-KRVideoPlayer-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		70FA2A06CE47FC373D3AAFF6 /* Check Pods Manifest.lock */ = {
+		3B2EDFD23441F75B32914D3A /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		86BD7ECA8CF1020B06FED372 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-KRVideoPlayer/Pods-KRVideoPlayer-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -416,7 +432,7 @@
 		};
 		BCA862A91B10AD3200BD22DA /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D109D543FF0ECF3DF7461A5E /* Pods-KRVideoPlayer.debug.xcconfig */;
+			baseConfigurationReference = BC8E08B1C9E0F2E945FF5C10 /* Pods-KRVideoPlayer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = KRVideoPlayer/Info.plist;
@@ -428,7 +444,7 @@
 		};
 		BCA862AA1B10AD3200BD22DA /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9F5327FC750A6111E57068D1 /* Pods-KRVideoPlayer.release.xcconfig */;
+			baseConfigurationReference = D2B7086BA220F4DD02A54539 /* Pods-KRVideoPlayer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = KRVideoPlayer/Info.plist;
