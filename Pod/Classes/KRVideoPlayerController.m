@@ -52,6 +52,7 @@ static const CGFloat kVideoPlayerControllerAnimationTimeinterval = 0.3f;
 - (void)setContentURL:(NSURL *)contentURL
 {
     [self stop];
+    [super setMovieSourceType:MPMovieSourceTypeUnknown];
     [super setContentURL:contentURL];
     [self.videoControl.indicatorView startAnimating];
     [self play];
